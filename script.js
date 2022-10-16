@@ -32,3 +32,13 @@
  * GET new player choice
  * GET new computer's choice
  */
+
+//Possible choices
+const choices = Array("rock", "paper", "scissors");
+
+function getComputerChoice() {
+  //Choose a random item from the choices list
+  return choices[Math.floor(Math.random() * choices.length)]
+}
+
+console.log(getComputerChoice())
