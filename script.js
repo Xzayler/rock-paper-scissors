@@ -44,6 +44,10 @@ function getComputerChoice() {
 function evaluateRound(computerSelection, playerSelection) {
   console.log(`Computer chose: ${computerSelection}`)
   console.log(`You chose: ${playerSelection}`)
+  if (CHOICES.indexOf(playerSelection) === -1) {
+    console.log(`${capitalizeFirstLetter(playerSelection)} is invalid. Please choose again.`);
+    return null;
+  }
   switch (computerSelection) {
     case playerSelection:
       console.log("It's a Draw!");
@@ -57,7 +61,7 @@ function evaluateRound(computerSelection, playerSelection) {
       console.log(`You win! ${capitalizeFirstLetter(playerSelection)} beats ${computerSelection}!`);
       return 1;
     default:
-      console.log("Someting went wrong, ");
+      console.log(`Something went wrong. Please choose again.`);
       return null;
   }
 }
@@ -83,6 +87,9 @@ for (let i = 1; i < 6; i++) {
   computerWins = playerWins - difference
 
   console.log(`Player ${playerWins} - ${computerWins} Computer`)
+
+
+  if (result === null){i--}
 }
 console.log("Final results:")
 if (playerWins === computerWins) {
