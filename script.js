@@ -28,7 +28,9 @@ const CHOICES = Array("rock", "paper", "scissors");
 
 function getComputerChoice() {
   //Choose a random item from the choices list
-  return CHOICES[Math.floor(Math.random() * CHOICES.length)]
+  let choice = CHOICES[Math.floor(Math.random() * CHOICES.length)]
+  console.log(choice)
+  return choice
 }
 
 // This function evaluates the winner based on the oder of the
@@ -61,16 +63,22 @@ function evaluateRound(computerSelection, playerSelection) {
 function game() {
   return evaluateRound(getComputerChoice(), prompt().toLowerCase())
 }
-let result = 0, playerWins = 0, computerWins = 0, draws = 0, offset = 0;
+let result = 0, playerWins = 0, computerWins = 0, draws = 0, difference = 0;
 
 for (let i = 1; i < 6; i++) {
   console.log(`Round ${i}`)
   result = game()
-  offset += result
+  difference += result //this basically keeps track of how many wins the player has
 
   //This does not really work. If there are too many draws, it breaks
-  playerWins = Math.floor(((i - offset) / 2) + offset)
-  computerWins = Math.floor(((i + offset) / 2) - offset)
+  // playerWins = Math.floor(((i - difference) / 2) + difference)
+  // computerWins = Math.floor(((i + difference) / 2) - difference)
+
+
+  // So I need to keep track of the draws
+  if (result === 0) {draws += 1}
+  playerWins = Math.floor(((i - draws - difference) / 2) + difference)
+  computerWins = playerWins - difference
 
   console.log(`Player ${playerWins} - ${computerWins} Computer`)
 }
