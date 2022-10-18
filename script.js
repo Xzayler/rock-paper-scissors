@@ -23,14 +23,16 @@
  */
 
 
+function capitalizeFirstLetter(str) {
+  return str[0].toUpperCase() + str.substr(1)
+}
+
 //Possible choices
 const CHOICES = Array("rock", "paper", "scissors");
 
 function getComputerChoice() {
   //Choose a random item from the choices list
-  let choice = CHOICES[Math.floor(Math.random() * CHOICES.length)]
-  console.log(choice)
-  return choice
+  return CHOICES[Math.floor(Math.random() * CHOICES.length)]
 }
 
 // This function evaluates the winner based on the oder of the
@@ -48,14 +50,14 @@ function evaluateRound(computerSelection, playerSelection) {
       return 0;
     // Does computer win?
     case CHOICES[(CHOICES.indexOf(playerSelection) + 1) % CHOICES.length]:
-      console.log(`You lose! ${computerSelection} beats ${playerSelection}!`);
+      console.log(`You lose! ${capitalizeFirstLetter(computerSelection)} beats ${playerSelection}!`);
       return - 1;
     // Does computer lose?
     case CHOICES[(CHOICES.indexOf(playerSelection) - 1 + CHOICES.length) % CHOICES.length]:
-      console.log(`You win! ${playerSelection} beats ${computerSelection}!`);
+      console.log(`You win! ${capitalizeFirstLetter(playerSelection)} beats ${computerSelection}!`);
       return 1;
     default:
-      console.log("Someting went wrong");
+      console.log("Someting went wrong, ");
       return null;
   }
 }
@@ -89,7 +91,6 @@ if (playerWins === computerWins) {
 else if (playerWins > computerWins) {
   console.log("You Win! :D")
 }
-
 else {
   console.log("Computer Wins! :c")
 }
