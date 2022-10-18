@@ -11,34 +11,44 @@
  * GET computer's random choice of rock, paper or scissors as a string
  * IF player's choice is the same as the computer's:
  *  draw
- * ELSE
- *  IF player's is rock
- *    IF computer's is scissors
- *      player wins
- *    IF computer is paper
- *      computer wins
- *  IF player's is paper
- *    IF computer's is rock
- *      player wins
- *    IF computer is scissors
- *      computer wins
- * IF player's is scissors
- *    IF computer's is paper
- *      player wins
- *    IF computer is rock
- *      computer wins
+ * 
+ * IF player's choice beats computer's choice:
+ *  player wins
+ * ELSE:
+ *  computer wins
  * 
  * Restart the game
  * GET new player choice
  * GET new computer's choice
  */
 
+
 //Possible choices
-const choices = Array("rock", "paper", "scissors");
+const CHOICES = Array("rock", "paper", "scissors");
 
 function getComputerChoice() {
   //Choose a random item from the choices list
-  return choices[Math.floor(Math.random() * choices.length)]
+  return CHOICES[Math.floor(Math.random() * CHOICES.length)]
 }
 
-console.log(getComputerChoice())
+// This function evaluates the winner based on the oder of the
+// elements within the CHOICES list. Each element beats the
+// element before it, and loses to the element after it.
+// This game can thus be expanded
+
+function evaluateRound(computerSelection, playerSelection) {
+  switch (computerSelection) {
+    case playerSelection:
+      return "It's a Draw!";
+    // Does computer win?
+    case CHOICES[(CHOICES.indexOf(playerSelection) + 1) % CHOICES.length]:
+      return `You lose! ${computerSelection} beats ${playerSelection}!`;
+    // Does computer lose?
+    case CHOICES[(CHOICES.indexOf(playerSelection) - 1 + CHOICES.length) % CHOICES.length]:
+      return `You win! ${playerSelection} beats ${computerSelection}!`;    
+    default:
+      return ERROR_MESSAGE;
+  }
+}
+
+console.log(evaluateRound("paper", prompt().toLowerCase()))
