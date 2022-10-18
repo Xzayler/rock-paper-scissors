@@ -43,11 +43,11 @@ function evaluateRound(computerSelection, playerSelection) {
   switch (computerSelection) {
     case playerSelection:
       console.log("It's a Draw!");
-      return null;
+      return 0;
     // Does computer win?
     case CHOICES[(CHOICES.indexOf(playerSelection) + 1) % CHOICES.length]:
       console.log(`You lose! ${computerSelection} beats ${playerSelection}!`);
-      return -1;
+      return - 1;
     // Does computer lose?
     case CHOICES[(CHOICES.indexOf(playerSelection) - 1 + CHOICES.length) % CHOICES.length]:
       console.log(`You win! ${playerSelection} beats ${computerSelection}!`);
@@ -61,4 +61,27 @@ function evaluateRound(computerSelection, playerSelection) {
 function game() {
   return evaluateRound(getComputerChoice(), prompt().toLowerCase())
 }
-game()
+let result = 0, playerWins = 0, computerWins = 0, draws = 0, offset = 0;
+
+for (let i = 1; i < 6; i++) {
+  console.log(`Round ${i}`)
+  result = game()
+  offset += result
+
+  //This does not really work. If there are too many draws, it breaks
+  playerWins = Math.floor(((i - offset) / 2) + offset)
+  computerWins = Math.floor(((i + offset) / 2) - offset)
+
+  console.log(`Player ${playerWins} - ${computerWins} Computer`)
+}
+console.log("Final results:")
+if (playerWins === computerWins) {
+  console.log("Draw! :|")
+}
+else if (playerWins > computerWins) {
+  console.log("You Win! :D")
+}
+
+else {
+  console.log("Computer Wins! :c")
+}
